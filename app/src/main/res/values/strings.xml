@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Popote</string>
+    <string name="app_name" translatable="false">Popote</string>
     <string name="hello">Bonjour %1$s !</string>
     <string name="tab_detail">Recette</string>
     <string name="tab_add">Ajouter</string>
@@ -17,7 +17,8 @@
     <string name="form_error_ingredients">Ajoutez au moins un ingrédient</string>
     <string name="xml_demo">Démo Views XML</string>
     <string name="xml_counter">Compteur : %1$d</string>
-    <string name="xml_increment">+1</string>
+    <string name="xml_increment" translatable="false">+1</string>
+    <string name="xml_ok" translatable="false">OK</string>
     <string name="xml_hint">Votre prénom</string>
     <plurals name="ingredient_count">
         <item quantity="one">%d ingrédient</item>
