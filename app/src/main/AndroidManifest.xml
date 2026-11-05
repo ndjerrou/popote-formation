@@ -15,6 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Activité secondaire (démo Views XML) : non exportée, thème AppCompat requis -->
+        <activity
+            android:name=".legacy.XmlDemoActivity"
+            android:exported="false"
+            android:label="@string/xml_demo"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
     </application>
 
 </manifest>

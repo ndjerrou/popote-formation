@@ -1,0 +1,9 @@
+<resources>
+    <!-- Qualificateur "en" : chargé automatiquement si le téléphone est en anglais -->
+    <string name="hello">Hello %1$s!</string>
+    <string name="tab_detail">Recipe</string>
+    <string name="tab_add">Add</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="add_to_cart">Add to shopping list</string>
+</resources>
