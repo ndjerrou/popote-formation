@@ -1,6 +1,14 @@
 package fr.formation.popote.ui.shopping
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
+import androidx.compose.material3.Switch
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,12 +35,44 @@ import fr.formation.popote.domain.ShoppingItem
 import fr.formation.popote.domain.pretty
 import org.koin.compose.viewmodel.koinViewModel
 
-// region shoppingscreen
+// region permission
 @Composable
 fun ShoppingListRoute(modifier: Modifier = Modifier, viewModel: ShoppingListViewModel = koinViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    ShoppingListScreen(state, onToggle = { viewModel.toggle(it) }, onClearChecked = { viewModel.clearChecked() }, modifier)
+    val context = LocalContext.current
+
+    // Permission runtime (Android 13+) : on demande, puis on agit selon la réponse
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { granted -> viewModel.setReminder(granted) }
+
+    Column(modifier) {
+        ReminderRow(
+            enabled = state.reminderEnabled,
+            onEnabledChange = { wanted ->
+                val needsPermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
+                    PackageManager.PERMISSION_GRANTED
+                if (wanted && needsPermission) permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                else viewModel.setReminder(wanted)
+            },
+            onTestClick = viewModel::testReminder,
+        )
+        ShoppingListScreen(state, onToggle = { viewModel.toggle(it) }, onClearChecked = { viewModel.clearChecked() })
+    }
 }
+// endregion permission
+
+@Composable
+private fun ReminderRow(enabled: Boolean, onEnabledChange: (Boolean) -> Unit, onTestClick: () -> Unit) {
+    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text("Rappel quotidien", modifier = Modifier.weight(1f))
+        if (enabled) TextButton(onClick = onTestClick) { Text("Tester") }
+        Switch(checked = enabled, onCheckedChange = onEnabledChange)
+    }
+}
+
+// region shoppingscreen
 
 @Composable
 fun ShoppingListScreen(

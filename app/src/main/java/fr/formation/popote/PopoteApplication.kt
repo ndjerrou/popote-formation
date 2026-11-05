@@ -4,6 +4,7 @@ import android.app.Application
 import fr.formation.popote.di.appModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import fr.formation.popote.work.Notifications
 import org.koin.core.context.startKoin
 
 // region app
@@ -16,6 +17,7 @@ class PopoteApplication : Application() {
             androidContext(this@PopoteApplication)
             modules(appModules)
         }
+        Notifications.createChannel(this)
     }
 }
 // endregion app

@@ -3,6 +3,8 @@
 
     <!-- Permission "normale" : accordée à l'installation, pas de popup -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Permission "dangereuse" (Android 13+) : déclarée ici ET demandée à l'exécution -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".PopoteApplication"
