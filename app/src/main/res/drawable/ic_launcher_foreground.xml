@@ -1,0 +1,8 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- Une marmite stylisée -->
+    <path android:fillColor="#FFFFFF" android:pathData="M34,48h40v18a10,10 0,0 1,-10 10h-20a10,10 0,0 1,-10 -10z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M30,44h48v5h-48z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M48,36h12v6h-12z"/>
+</vector>
