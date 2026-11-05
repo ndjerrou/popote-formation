@@ -10,6 +10,7 @@ class MeasureParserTest {
     @Test fun kilosAreConverted() = assertEquals(Measure.Exact(Quantity(1500.0, MeasureUnit.GRAM)), MeasureParser.parse("1,5 kg"))
     @Test fun fraction() = assertEquals(Measure.Exact(Quantity(0.5, MeasureUnit.CUP)), MeasureParser.parse("1/2 cup"))
     @Test fun pieces() = assertEquals(Measure.Exact(Quantity(3.0, MeasureUnit.PIECE)), MeasureParser.parse("3 cloves"))
+    @Test fun pounds() = assertEquals(Measure.Exact(Quantity(453.6, MeasureUnit.GRAM)), MeasureParser.parse("1 pound"))
     @Test fun vague() = assertEquals(Measure.Vague("Pinch"), MeasureParser.parse("Pinch"))
     @Test fun unknownUnitIsVague() = assertEquals(Measure.Vague("2 handfuls"), MeasureParser.parse("2 handfuls"))
     @Test fun empty() { assertEquals(Measure.None, MeasureParser.parse("")); assertEquals(Measure.None, MeasureParser.parse(null)) }
@@ -22,6 +23,7 @@ class QuantityTest {
         assertEquals("1,5 kg", Quantity(1500.0, MeasureUnit.GRAM).pretty())
         assertEquals("3", Quantity(3.0, MeasureUnit.PIECE).pretty())
         assertEquals("250 ml", Quantity(250.0, MeasureUnit.MILLILITER).pretty())
+        assertEquals("0,25 tasse", Quantity(0.25, MeasureUnit.CUP).pretty())
     }
 }
 
@@ -46,5 +48,17 @@ class ShoppingListBuilderTest {
     @Test fun differentUnitsGiveSeveralLines() {
         val items = ShoppingListBuilder.build(listOf(recipe("A", "Milk" to "200ml", "Milk" to "1 cup")))
         assertEquals(2, items.size)
+    }
+}
+
+class ShoppingMergeTest {
+    @Test fun mergeAddsAndUnchecks() {
+        val existing = listOf(ShoppingItem("pasta", Quantity(200.0, MeasureUnit.GRAM), checked = true))
+        val added = listOf(ShoppingItem("pasta", Quantity(100.0, MeasureUnit.GRAM)), ShoppingItem("salt", null, listOf("Pinch")))
+        val merged = ShoppingListBuilder.merge(existing, added)
+        assertEquals(listOf(
+            ShoppingItem("pasta", Quantity(300.0, MeasureUnit.GRAM), checked = false),
+            ShoppingItem("salt", null, listOf("Pinch")),
+        ), merged)
     }
 }

@@ -6,4 +6,8 @@
     <string name="ingredients">Ingredients</string>
     <string name="instructions">Instructions</string>
     <string name="add_to_cart">Add to shopping list</string>
+    <plurals name="ingredient_count">
+        <item quantity="one">%d ingredient</item>
+        <item quantity="other">%d ingredients</item>
+    </plurals>
 </resources>

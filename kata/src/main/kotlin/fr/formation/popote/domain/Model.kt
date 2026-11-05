@@ -44,13 +44,15 @@ data class ShoppingItem(
     val name: String,
     val quantity: Quantity?,
     val notes: List<String> = emptyList(),
+    val checked: Boolean = false,
 )
 // endregion model
 
 // region format
 /** Affichage lisible : 1500 g -> "1.5 kg", 3.0 pièces -> "3". */
 fun Quantity.pretty(): String {
-    fun Double.clean() = if (this % 1.0 == 0.0) toLong().toString() else "%.1f".format(Locale.FRANCE, this) // Locale explicite : piège classique !
+    // 2 décimales max, sans zéros inutiles ; Locale explicite (piège classique : "1.5" vs "1,5")
+    fun Double.clean() = "%.2f".format(Locale.FRANCE, this).trimEnd('0').trimEnd(',')
     return when {
         unit == MeasureUnit.GRAM && amount >= 1000 -> "${(amount / 1000).clean()} kg"
         unit == MeasureUnit.MILLILITER && amount >= 1000 -> "${(amount / 1000).clean()} l"

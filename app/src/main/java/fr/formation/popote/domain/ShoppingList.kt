@@ -33,6 +33,32 @@ object ShoppingListBuilder {
         }
     }
 
+    // region merge
+    /**
+     * Ajoute des articles à une liste existante (J3+).
+     * Règle métier : si on rajoute un article déjà coché, il redevient "à acheter".
+     */
+    fun merge(existing: List<ShoppingItem>, added: List<ShoppingItem>): List<ShoppingItem> =
+        (existing + added)
+            .groupBy { it.name to it.quantity?.unit }
+            .map { (_, items) ->
+                items.reduce { acc, item ->
+                    acc.copy(
+                        quantity = sum(acc.quantity, item.quantity),
+                        notes = acc.notes + item.notes,
+                        checked = acc.checked && item.checked,
+                    )
+                }
+            }
+            .sortedBy { it.name }
+
+    private fun sum(a: Quantity?, b: Quantity?): Quantity? = when {
+        a == null -> b
+        b == null -> a
+        else -> a + b
+    }
+    // endregion merge
+
     private fun String.normalized(): String = trim().lowercase()
 }
 // endregion shopping

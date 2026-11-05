@@ -9,6 +9,8 @@ object MeasureParser {
     private val units: Map<String, Pair<MeasureUnit, Double>> = buildMap {
         listOf("g", "gr", "gram", "grams").forEach { put(it, MeasureUnit.GRAM to 1.0) }
         listOf("kg", "kilo", "kilos").forEach { put(it, MeasureUnit.GRAM to 1000.0) }
+        listOf("lb", "lbs", "pound", "pounds").forEach { put(it, MeasureUnit.GRAM to 453.6) }
+        listOf("oz", "ounce", "ounces").forEach { put(it, MeasureUnit.GRAM to 28.35) }
         listOf("ml").forEach { put(it, MeasureUnit.MILLILITER to 1.0) }
         listOf("cl").forEach { put(it, MeasureUnit.MILLILITER to 10.0) }
         listOf("l", "litre", "liter", "litres", "liters").forEach { put(it, MeasureUnit.MILLILITER to 1000.0) }

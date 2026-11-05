@@ -17,16 +17,15 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import fr.formation.popote.R
+import org.koin.compose.viewmodel.koinViewModel
 import fr.formation.popote.domain.Ingredient
 import fr.formation.popote.domain.Measure
 import fr.formation.popote.domain.MeasureParser
@@ -68,21 +67,18 @@ data class RecipeFormState(
 // endregion formstate
 
 // region formstateful
-/** Version "stateful" : possède l'état (remember) et le descend au formulaire. */
+/** Version "stateful" (J3) : l'état vit dans le ViewModel, le formulaire reste stateless. */
 @Composable
-fun AddRecipeScreen(onSave: (RecipeFormState) -> Unit, modifier: Modifier = Modifier) {
-    var state by remember { mutableStateOf(RecipeFormState()) }
+fun AddRecipeRoute(
+    onSaved: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: AddRecipeViewModel = koinViewModel(),
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
     AddRecipeForm(
         state = state,
-        onStateChange = { state = it },
-        onSave = {
-            if (state.isValid) {
-                onSave(state)
-                state = RecipeFormState()
-            } else {
-                state = state.copy(showErrors = true)
-            }
-        },
+        onStateChange = viewModel::onStateChange,
+        onSave = { if (viewModel.save()) onSaved() },
         modifier = modifier,
     )
 }
