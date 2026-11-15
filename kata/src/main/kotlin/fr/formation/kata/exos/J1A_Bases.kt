@@ -8,7 +8,7 @@ fun e01(): String {
     portions += 2
     val pricePerPortion: Double = 1.75      // type explicite (optionnel ici)
     val total = portions * pricePerPortion  // Int * Double -> Double
-    return "$recipeName pour $portions personnes : ${"%.2f".format(java.util.Locale.FRANCE, total)} €"
+    return "$recipeName pour $portions personnes : $total €"   // 7.0 € (formatage FR : voir pretty())
 }
 // endregion E01
 
