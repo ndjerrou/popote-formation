@@ -17,11 +17,9 @@ fun e01(): String {
 fun cookingTime(baseMinutes: Int, portions: Int = 2, extraPerPortion: Int = 3): Int =
     baseMinutes + (portions - 2).coerceAtLeast(0) * extraPerPortion
 
-fun e02(): List<Int> = listOf(
-    cookingTime(20),                                   // 20
-    cookingTime(20, portions = 6),                     // 32
-    cookingTime(baseMinutes = 10, extraPerPortion = 5, portions = 4), // 20
-)
+// cookingTime(20)                                               → 20
+// cookingTime(20, portions = 6)                                 → 32
+// cookingTime(baseMinutes = 10, extraPerPortion = 5, portions = 4) → 20
 // endregion E02
 
 // region E03
@@ -33,7 +31,7 @@ fun difficultyLabel(minutes: Int): String = when (minutes) {
     else -> if (minutes < 0) "Invalide" else "Week-end"
 }
 
-fun e03(): List<String> = listOf(10, 30, 90, 300, -1).map { difficultyLabel(it) }
+// difficultyLabel(10) → "Express" · difficultyLabel(300) → "Week-end" · difficultyLabel(-1) → "Invalide"
 // endregion E03
 
 // region E04
@@ -47,8 +45,6 @@ fun parsePortions(input: String?): Int {
 fun describeAuthor(author: String?): String =
     author?.let { "Recette proposée par ${it.uppercase()}" } ?: "Auteur inconnu"
 
-fun e04(): List<Any> = listOf(
-    parsePortions("4"), parsePortions(" 40 "), parsePortions("abc"), parsePortions(null),
-    describeAuthor("nissim"), describeAuthor(null),
-)
+// parsePortions("4") → 4 · parsePortions(" 40 ") → 12 · parsePortions("abc") → 1 · parsePortions(null) → 1
+// describeAuthor("nissim") → "Recette proposée par NISSIM" · describeAuthor(null) → "Auteur inconnu"
 // endregion E04

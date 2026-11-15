@@ -40,12 +40,13 @@ class Portion private constructor(val count: Int) {
 // E07 - data class : equals/hashCode/toString/copy/destructuring gratuits
 data class Review(val author: String, val stars: Int, val comment: String = "")
 
-fun e07(): List<Any> {
+fun reviewSummary(): String {
     val r1 = Review("Léa", 4)
     val r2 = r1.copy(stars = 5)           // nouvelle instance, r1 inchangé
-    val (author, stars) = r2              // destructuring
-    return listOf(r1 == Review("Léa", 4), r2, "$author:$stars")
+    val (author, stars) = r2              // déstructuration
+    return "${r1 == Review("Léa", 4)} / $r2 / $author:$stars"
 }
+// reviewSummary() → "true / Review(author=Léa, stars=5, comment=) / Léa:5"
 // endregion E07
 
 // region E08
@@ -53,23 +54,23 @@ fun e07(): List<Any> {
 enum class Category(val emoji: String, val vegetarian: Boolean) {
     STARTER("🥗", true), MAIN("🍝", false), DESSERT("🍰", true), VEGAN("🌱", true);
 
-    fun label() = "$emoji ${name.lowercase().replaceFirstChar { it.uppercase() }}"
+    // "STARTER" → "S" + "tarter" → "Starter"
+    fun label() = "$emoji ${name.take(1)}${name.drop(1).lowercase()}"
 }
-
-fun e08(): List<String> = Category.entries.filter { it.vegetarian }.map { it.label() }
+// Category.STARTER.label() → "🥗 Starter" · Category.VEGAN.vegetarian → true
 // endregion E08
 
 // region E09
 // E09 - sealed interface : hiérarchie fermée, when exhaustif sans else
 sealed interface LoadState {
     data object Loading : LoadState
-    data class Success(val recipes: List<String>) : LoadState
+    data class Success(val count: Int) : LoadState
     data class Error(val message: String, val retryable: Boolean = true) : LoadState
 }
 
 fun render(state: LoadState): String = when (state) {
     LoadState.Loading -> "⏳ Chargement…"
-    is LoadState.Success -> "✅ ${state.recipes.size} recette(s)"   // smart cast
+    is LoadState.Success -> "✅ ${state.count} recette(s)"   // smart cast
     is LoadState.Error -> "❌ ${state.message}" + if (state.retryable) " (réessayer)" else ""
 }
 // endregion E09
@@ -82,5 +83,5 @@ fun String.toSlug(): String =
 val Int.minutesLabel: String
     get() = if (this < 60) "$this min" else "${this / 60} h ${(this % 60).toString().padStart(2, '0')}"
 
-fun e10(): List<String> = listOf("Spicy Arrabiata Penne!".toSlug(), 45.minutesLabel, 135.minutesLabel)
+// "Spicy Arrabiata Penne!".toSlug() → "spicy-arrabiata-penne" · 45.minutesLabel → "45 min" · 135.minutesLabel → "2 h 15"
 // endregion E10

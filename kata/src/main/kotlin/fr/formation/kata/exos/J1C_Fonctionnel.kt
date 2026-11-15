@@ -4,15 +4,12 @@ package fr.formation.kata.exos
 // E11 - lambdas, fonctions d'ordre supérieur, référence de fonction
 fun applyTwice(value: Int, transform: (Int) -> Int): Int = transform(transform(value))
 
-fun e11(): List<Int> {
-    val double: (Int) -> Int = { it * 2 }
-    fun plusTen(x: Int) = x + 10
-    return listOf(
-        applyTwice(3, double),            // 12
-        applyTwice(3) { it * it },        // 81  (trailing lambda)
-        applyTwice(3, ::plusTen),         // 23  (référence de fonction)
-    )
-}
+val double: (Int) -> Int = { it * 2 }
+fun plusTen(x: Int) = x + 10
+
+// applyTwice(3, double)      → 12
+// applyTwice(3) { it * it }  → 81  (trailing lambda)
+// applyTwice(3, ::plusTen)   → 23  (référence de fonction)
 // endregion E11
 
 // region E12
