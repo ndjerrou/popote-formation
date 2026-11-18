@@ -4,7 +4,7 @@
 |---|---|---|
 | `1-Convertisseur/` | Convertisseur de cuisine | ✅ |
 | `2-MesCourses/` | Mes Courses | ✅ |
-| `3-Recettes/` | Recettes | ✅ |
+| `3-Recettes/` | Recettes | Après la correction |
 
 ## Ouvrir le corrigé dans Android Studio
 

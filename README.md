@@ -17,7 +17,7 @@ Tout ce qu'il vous faut est sur la branche **`main`** : les cahiers, les corrig�
 | `kata/` | Jour 1 : exercices Kotlin et leurs tests |
 | `corriges/jour2/1-Convertisseur/` | Jour 2 : corrigé de l'appli 1 |
 | `corriges/jour2/2-MesCourses/` | Jour 2 : corrigé de l'appli 2 |
-| `corriges/jour2/3-Recettes/` | Jour 2 : corrigé de l'appli 3 |
+| `corriges/jour2/3-Recettes/` | Jour 2 : corrigé de l'appli 3, **après la correction** |
 | `jour3/MusicPlayer/` | Jour 3 : **le point de départ** du lecteur de musique |
 
 **Ouvrir un projet dans Android Studio :** **File → Open**, puis **le dossier du projet** (par exemple
