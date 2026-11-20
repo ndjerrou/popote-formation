@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jour1/Popote   # le projet Popote est rangé dans le dossier du jour 1
     steps:
       - uses: actions/checkout@v4
 
@@ -34,13 +37,16 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: popote-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: jour1/Popote/app/build/outputs/apk/debug/*.apk
 
   release:
     # Uniquement sur un tag v1.0.0, v1.1.0...
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jour1/Popote
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -64,4 +70,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: popote-release-aab
-          path: app/build/outputs/bundle/release/*.aab
+          path: jour1/Popote/app/build/outputs/bundle/release/*.aab

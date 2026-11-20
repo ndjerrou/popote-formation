@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Les dossiers que le FileProvider a le droit de partager : ici, seulement cache/exports/ -->
+<paths>
+    <cache-path name="exports" path="exports/" />
+</paths>

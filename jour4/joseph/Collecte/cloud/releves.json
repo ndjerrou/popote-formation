@@ -1,0 +1,5 @@
+[
+  {"date": "17/11/2026 08:30", "site": "Entrepôt A", "operateur": "Julie", "mesure": 21.5, "unite": "°C", "commentaire": "RAS"},
+  {"date": "17/11/2026 09:10", "site": "Entrepôt B", "operateur": "Karim", "mesure": 64, "unite": "% humidité", "commentaire": "Fenêtre ouverte"},
+  {"date": "17/11/2026 10:45", "site": "Quai 3", "operateur": "Julie", "mesure": 3.2, "unite": "bar", "commentaire": ""}
+]

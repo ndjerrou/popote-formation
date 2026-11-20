@@ -1,0 +1,5 @@
+# Copier ce fichier en local.properties (ignoré par git) et remplacer par les vraies valeurs.
+# sdk.dir est ajouté automatiquement par Android Studio.
+api.baseUrl=https://mon-serveur.exemple.fr
+api.publicKey=pub_xxxxxxxxxxxx
+api.privateKey=priv_xxxxxxxxxxxx
